@@ -1,0 +1,20 @@
+{
+  "name": "qrscanner2",
+  "version": "1.0.0",
+  "description": "Creates QR Code(s) and scans it to display a website, file or image",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "qrcode": "^1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
