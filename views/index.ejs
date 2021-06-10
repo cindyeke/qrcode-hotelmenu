@@ -7,6 +7,14 @@
     <title>Home Page</title>
 </head>
 <body>
-    <h1>QR HomePage</h1>
+    <form method="post" action="/generateqrcode">
+        <input type=text name="url" placeholder="url" />
+        <input type=submit name="submit" value="Create QR Code" />
+        <br><br><br><br><br>
+
+        <a href=<%=imgsrc%> download="QRCode">
+            <img src=<%=imgsrc%> alt="qrcode"/>
+        </a>
+    </form>
 </body>
 </html>
