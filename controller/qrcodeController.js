@@ -1,24 +1,27 @@
 const path = require("path");
-const qrcode = require("qrcode");
+const fs = require("fs");
 
-exports.generateQRCode = async (text) => {
-  console.log("Initializing request to generate QR code");
+const { AwesomeQR } = require("awesome-qr");
 
-  let imgName = "qrcode-" + Date.now() + ".png";
-  let imgPath = path.join(__dirname, "../images");
-
+exports.generateQRCode = async (text, filename) => {
+  console.log("Initializing request to generate QR code with canvas...");
   try {
-    await qrcode.toFile(`${imgPath}/${imgName}`, text, {
-      color: {
-        dark: "#00F",
-        light: "#0000",
-      },
-    });
+    let imgPath = path.join(__dirname, `../public/images/${filename}`);
+    const logo = fs.readFileSync(imgPath);
 
-    let qrcodeSrc = imgName;
+    const buffer = await new AwesomeQR({
+      text: text,
+      size: 500,
+      margin: 10,
+      logoImage: logo,
+    }).draw();
+
+    let qrcodeSrc = "images/qrcode-" + Date.now() + ".png";
+
+    fs.writeFileSync(`public/${qrcodeSrc}`, buffer);
 
     return qrcodeSrc;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };

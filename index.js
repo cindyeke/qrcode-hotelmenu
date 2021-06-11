@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8100;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static("images"));
+app.use(express.static(__dirname + "/public"));
 
 app.set("views", "./views");
 app.set("view engine", "ejs");

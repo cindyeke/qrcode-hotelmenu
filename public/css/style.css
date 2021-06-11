@@ -1,0 +1,151 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #B2EFFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form-container, .img-container{
+    background-color: #fbfeff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 3px;
+}
+
+.img-container {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.title {
+    background-color: #004E5C;
+    height: 100px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    text-transform: uppercase;
+    color: #eff2f3;
+    font-size:24px;
+}
+
+.form, .download-image {
+    margin: 30px 20px;
+}
+
+
+input[type="text"],
+input[type="submit"] {
+    width: 100%;
+    height: 50px;
+}
+
+input[type="submit"] {
+    background-color: #FB9039;
+    border: none;
+    color: #fff;
+    margin: 40px 0;
+    cursor: pointer;
+}
+
+input[type="text"]{
+    border: 1px solid #FB9039;
+    width: 100%;
+    padding: 20px;
+    outline: none;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+}
+
+  
+.input-field:focus {
+    border: 2px solid #FB9039;
+}
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin: 20px 0;
+}
+  
+.icon {
+    padding: 15px 10px;
+    background: #FB9039;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label {
+    padding: 10px
+}
+
+label > i {
+    margin-right: 10px;
+}
+
+.inputfile + label {
+    font-size: 16px;
+    font-weight:bold;
+    color: rgb(39, 38, 38);
+    background-color: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.inputfile + label:hover {
+    background-color: rgba(251, 144, 57, 0.2);
+}
+
+.error-msg {
+    width: 100%;
+    background-color: rgba(251, 144, 57, 0.1);
+    color: red;
+    padding: 10px 20px;
+}
+
+.img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+@media (max-width: 1023px) {
+    section {
+        margin: 0 20px;
+    }
+
+    .form-container, .img-container {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .form-container, .img-container {
+        width: 500px;
+    }
+}

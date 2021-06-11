@@ -4,17 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>QR Code Generator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/7ba47a027b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form method="post" action="/generateqrcode">
-        <input type=text name="url" placeholder="url" />
-        <input type=submit name="submit" value="Create QR Code" />
-        <br><br><br><br><br>
+    <section>
+        <div class="form-container">
+            <div class="title">QR Code Generator</div>
+            <div class="form">
+                <% if(message.length > 0){ %> 
+                    <div class="error-msg"><%=message%></div>
+                <% } %>
+                <form action="/generateqrcode" method="post" enctype="multipart/form-data">
+                    <div class="input-container">
+                        <i class="fa fa-link icon"></i>
+                        <input class="input-field" type="text" name="url" placeholder="URL" autocomplete="off"/><br>
+                    </div>
+                    
+                    <input type="file" name="file" id="file" class="inputfile" accept="image/*" />
+                    <label for="file"><i class="fa fa-download"></i>Choose logo...</label>
+                    <span class="selectedImage"></span><br>
+                    <input type="submit" id="submitBtn" value="GENERATE QR CODE" />
+                </form>
+            </div>
+        </div>
 
-        <a href=<%=imgsrc%> download="QRCode">
-            <img src=<%=imgsrc%> alt="qrcode"/>
-        </a>
-    </form>
+        <% if(imgsrc){ %> 
+        <div class="img-container">
+            <div class="title">Download QR Code</div>
+            <div class="download-image">
+                <a href=<%=imgsrc%> download="qrcode.png">
+                    <img src=<%=imgsrc%> alt="qrcode" class="img" />
+                </a>
+            </div>
+        </div>
+        <% } %>
+    </section>
+
+    <script>
+        const selectedFile = document.querySelector('.inputfile');
+        let selectedImage = document.querySelector('.selectedImage');
+        let submitBtn = document.querySelector('#submitBtn');
+
+        selectedFile.onchange = () =>{
+            let path = selectedFile.value;
+
+            let splitPath = path.split('\\');
+            let imgName = splitPath[splitPath.length - 1];
+
+            selectedImage.innerHTML = imgName;
+        }
+    </script>
+    
 </body>
 </html>

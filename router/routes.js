@@ -1,23 +1,49 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
 const qrcode = require("../controller/qrcodeController");
 
-router.get("/", (req, res) => {
-  let imgsrc = "";
-  res.render("index", { imgsrc });
+const DIR = "./public/images";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: function (req, file, cb) {
+    const fileName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, Date.now() + "-" + fileName);
+  },
 });
 
-router.post("/generateqrcode", (req, res) => {
-  const url = req.body.url;
+const upload = multer({
+  storage: storage,
+});
 
-  if (url.length === 0) res.send("Empty URL!");
+router.get("/", (req, res) => {
+  let message = "";
+
+  const queryparam = req.query.notvalid;
+
+  if (queryparam === "000") message = "Input URL";
+
+  let imgsrc = "";
+  res.render("index", { imgsrc, message });
+});
+
+router.post("/generateqrcode", upload.single("file"), (req, res) => {
+  let message = "";
+
+  const url = req.body.url;
+  const logoFile = req.file;
+
+  if (url.length === 0) return res.redirect("/?notvalid=" + "000");
 
   (async () => {
-    let imgsrc = await qrcode.generateQRCode(url);
-    console.log("QR Code generated and ready for download");
+    const imgsrc = await qrcode.generateQRCode(url, logoFile.filename);
+    console.log("Successfully generated QR Code...");
 
-    res.render("index", { imgsrc });
+    res.render("index", { imgsrc, message });
   })();
 });
 
