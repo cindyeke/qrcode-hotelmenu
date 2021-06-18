@@ -33,18 +33,29 @@ router.get("/", (req, res) => {
 
 router.post("/generateqrcode", upload.single("file"), (req, res) => {
   let message = "";
+  let imgsrc;
 
   const url = req.body.url;
   const logoFile = req.file;
 
   if (url.length === 0) return res.redirect("/?notvalid=" + "000");
 
-  (async () => {
-    const imgsrc = await qrcode.generateQRCode(url, logoFile.filename);
-    console.log("Successfully generated QR Code...");
+  try {
+    (async () => {
+      if (!logoFile) {
+        console.log("Image Logo not inputted");
+        imgsrc = await qrcode.generateQRCode(url, null);
+      } else {
+        console.log("Image Logo inputted");
+        imgsrc = await qrcode.generateQRCode(url, logoFile.filename);
+      }
 
-    res.render("index", { imgsrc, message });
-  })();
+      console.log("Successfully generated QR Code...");
+      res.render("index", { imgsrc, message });
+    })();
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
